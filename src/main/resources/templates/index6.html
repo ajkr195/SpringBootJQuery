@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title th:text="${metaTitle} ? ${metaTitle} : 'default title'"></title>
+<!-- <link rel="stylesheet" -->
+<!-- 	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" /> -->
+<!-- <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"> -->
+<!-- <link rel="stylesheet" th:href="@{/webjars/jquery-ui/jquery-ui.min.css}"> -->
+<style>
+
+#header{
+background-color:#40B1ED;
+height:60px
+}
+.maindiv{
+border:1px solid #000;
+background:#FAFAFA;
+width:960px;
+height:1000px;
+position:absolute;
+top:20px;
+left:350px;
+overflow:auto
+}
+.menu{
+background-color:#fff;
+width:220px;
+height:350px;
+padding:15px;
+border:1px solid #000;
+border-radius:4px;
+position:absolute;
+top:70px;
+left:10px;
+box-shadow:0 0 5px #000
+}
+.menu img{
+float:left;
+padding-left:10px
+}
+#your{
+padding:10px;
+width:400px;
+height:120px;
+position:absolute;
+top:10px;
+left:50px;
+border:1px dashed #fff
+}
+#your:hover{
+background-color:#FBF0FC;
+border:1px dashed #000;
+cursor:pointer
+}
+#InputsWrapper{
+/* position:absolute; */
+top:150px;
+left:40px
+}
+#your1{
+padding:10px;
+width:500px;
+height:120px;
+position:absolute;
+top:10px;
+left:50px;
+border:1px dashed #000
+}
+#titleid{
+font-size:20px
+}
+#inputhead{
+font-size:30px;
+border-radius:2px;
+box-shadow:0 0 5px #40B1ED;
+border:1px solid #40B1ED;
+width:450px
+}
+#doneid{
+position:absolute;
+bottom:5px;
+right:5px;
+color:#fff;
+background-color:#40B1ED;
+border-radius:2px;
+border:2px solid #40B1ED
+}
+#namebutton{
+border:4px solid #9AB7F5;
+width:200px;
+height:50px;
+background:#E4E7F0;
+margin-bottom:10px;
+font-size:20px;
+border-radius:2px
+}
+#namebutton:hover{
+border:4px solid #9680ED;
+border-radius:2px;
+cursor:pointer
+}
+#emailbutton{
+border:4px solid #9AB7F5;
+width:200px;
+height:50px;
+background:#efefef;
+margin-bottom:10px;
+font-size:20px;
+border-radius:2px
+}
+#emailbutton:hover{
+border:4px solid #9680ED;
+border-radius:2px;
+cursor:pointer
+}
+#addressbutton{
+border:4px solid #9AB7F5;
+width:200px;
+height:50px;
+background:#efefef;
+margin-bottom:10px;
+font-size:20px;
+border-radius:2px
+}
+#addressbutton:hover{
+border:4px solid #9680ED;
+border-radius:2px;
+cursor:pointer
+}
+#checkboxbutton{
+border:4px solid #9AB7F5;
+width:200px;
+height:50px;
+background:#efefef;
+margin-bottom:10px;
+font-size:20px;
+border-radius:2px
+}
+#checkboxbutton:hover{
+border:4px solid #9680ED;
+border-radius:2px;
+cursor:pointer
+}
+#radioaddbutton{
+border:4px solid #9AB7F5;
+width:200px;
+height:50px;
+background:#efefef;
+margin-bottom:10px;
+font-size:20px;
+border-radius:2px
+}
+#radioaddbutton:hover{
+border:4px solid #9680ED;
+border-radius:2px;
+cursor:pointer
+}
+#reset{
+border:4px solid #9AB7F5;
+width:200px;
+height:50px;
+margin-bottom:10px;
+font-size:20px;
+border-radius:2px
+}
+.InputsWrapper1{
+background-color:#fff;
+width:650px;
+height:900px;
+border:1px solid #000;
+position:absolute;
+top:70px;
+right:10px;
+border-radius:4px;
+overflow:auto;
+box-shadow:0 0 5px #000
+}
+div.name{
+background:#E1F3FC;
+margin-bottom:10px;
+margin-top:15px;
+margin-left:10px;
+width:300px;
+height:35px;
+border-radius:5px;
+border:1px solid blue;
+padding:5px;
+cursor:move
+}
+.name input,.email input{
+padding:5px
+}
+div.email{
+background:#E1F3FC;
+margin-bottom:10px;
+margin-top:15px;
+margin-left:10px;
+width:300px;
+height:35px;
+border-radius:5px;
+border:1px solid blue;
+padding:5px;
+cursor:move
+}
+div.address{
+position:relative;
+background:#E1F3FC;
+margin-bottom:10px;
+margin-top:15px;
+margin-left:10px;
+width:320px;
+height:50px;
+border-radius:5px;
+border:1px solid blue;
+padding:5px;
+cursor:move
+}
+.address textarea{
+padding-left:5px
+}
+div.address label{
+position:absolute
+}
+div.address p{
+position:absolute;
+right:10px;
+top:-10px
+}
+.checkbox_child{
+background:#E1F3FC;
+margin-bottom:10px;
+margin-top:20px;
+margin-left:10px;
+width:170px;
+height:25px;
+border-radius:5px;
+border:1px solid blue;
+padding:5px;
+cursor:move
+}
+.radiobutton_child{
+background:#E1F3FC;
+margin-bottom:10px;
+margin-top:20px;
+margin-left:10px;
+width:140px;
+height:25px;
+border-radius:5px;
+border:1px solid blue;
+padding:5px;
+cursor:move
+}
+
+</style>
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expand-sm bg-primary navbar-light  py-0"
+		th:fragment="header">
+		<!-- 	<nav class="navbar bg-custom navbar-expand-sm bg-primary navbar-dark py-1" -->
+		<!-- 		th:fragment="header"> -->
+		<a th:href="@{/}" class="brand-link"> </a> <a class="navbar-brand"
+			th:href="@{/}">Spring JQuery</a>
+		<button type="button" class="navbar-toggler" data-toggle="collapse"
+			data-target="#nav">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse justify-content-between" id="nav">
+
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link" th:href="@{/}"><i
+						class="fas fa-home fa-2x mr-5" style="color: white"></i></a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/}">index1</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index2}">index2</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index3}">index3</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index4}">index4</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index4}">index5</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container mt-5">
+
+
+		<div class="maindiv">
+			<div id="header"></div>
+			<div class="menu">
+				<button id="namebutton">Name</button>
+				<button id="emailbutton">Email</button>
+				<button id="addressbutton">Address</button>
+				<button id="checkboxbutton">CheckBox</button>
+				<button id="radioaddbutton">Radio</button>
+				<button id="reset">Reset</button>
+			</div>
+			<div class="InputsWrapper1">
+				<div id="yourhead">
+					<div id="your">
+					<br/>
+						<h4 id="yourtitle">Your Form Title Goes Here - Click to change it</h4>
+					</div>
+				</div>
+				<div id="InputsWrapper"></div>
+			</div>
+		</div>
+
+
+
+	</div>
+
+
+</body>
+
+
+<script type="text/javascript"
+	th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>
+<script type="text/javascript"
+	th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+/*------------------------------------------------ To Edit Your Form
+Heading -------------------------------------------------*/
+$("#yourtitle").click(function() { $("#your").hide(); var createhead =
+$(document.createElement('div')); createhead.attr("id", "your1");
+createhead.html('<label id="titleid">' + '<b>Title : </b>' + '</label>' + '<br />' + '<input id="inputhead" "type=text placeholder="Type Your title" />'
++ '<button id="doneid">Done</button>'); $("#yourhead").append(createhead); var get1 =
+$("#yourtitle").text(); $("#inputhead").val(get1);
+$("#doneid").click(function() { var get = $("#inputhead").val(); if (get
+== 0) { alert("Cannot Leave Field Blank"); } else {
+$("#yourtitle").html('<h1>' + get + '</h1>'); $("#yourtitle").css({ "text-align": "center", "font-size": "25px",
+"color": "white", "cursor": "pointer" }); $("#your1").remove();
+$("#your").show(); $("#your").css({ "background-color": "#F4D4FA",
+"width": "530px" }); $("#justclickid").hide(); } }); });
+/*-------------------------------------------------------------------*/
+var MaxInputs = 100; //Maximum Input Boxes Allowed
+/*------------------------------------------------------------------- To
+Keep Track of Fields And Divs Added
+-------------------------------------------------------------------*/
+var nameFieldCount = 0; var emailFieldCount = 0; var addressFieldCount =
+0; var checkboxFieldCount = 0; var radiobuttonFieldCount = 0; var
+checkboxdivCount = 0; var checkbox_sub_para_Count = 0; var
+radiobuttondivCount = 0; var radio_sub_para_Count = 0; var InputsWrapper
+= $("#InputsWrapper"); // Input Box Wrapper ID 
+var x = InputsWrapper.length; // Initial Field Count
+/*-------------------------------------------------------------- To Get
+Fields Button ID
+----------------------------------------------------------------*/ var
+namefield = $("#namebutton"); var emailfield = $("#emailbutton"); var
+addressfield = $("#addressbutton"); var checkbox = $("#checkboxbutton");
+var radiobutton = $("#radioaddbutton"); $(InputsWrapper).sortable(); //To Make Added Fields Sortable
+/*--------------------------------------------------------------- To Add
+Name Field
+----------------------------------------------------------------*/
+$(namefield).click(function() { if (x <= MaxInputs) { nameFieldCount++;
+$(InputsWrapper).append('<div>' + '<div class="name" id="InputsWrapper_0' + nameFieldCount + '">' + '<label>Name:' + nameFieldCount + '</label>' + '<input type="text"	name="mytext[]" id="field_' + nameFieldCount + '" placeholder="Name ' + nameFieldCount + '" />' + '	<button class="removeclass0">x</button>' + '<button class="addclass0">+</button>' + '<br>' + '</div>' + '</div>'); 
+x++; } return false; }); $("body").on("click", ".removeclass0",
+function() { $(this).parent('div').remove(); // To Remove Name Field
+x--; return false; }); $("body").on("click", ".addclass0", function() {
+nameFieldCount++; // To Add More Name Fields
+$(this).parent('div').parent('div').append('<div class="name">	' + '<label>Name:' + nameFieldCount + '</label>' + '<input type="text"		name="mytext[]" id="field_' +nameFieldCount + '"		placeholder="Name ' + nameFieldCount + '" />' + '<button class="removeclass0">x</button>	' + '	<button class="addclass0">+</button>	' + '<br>' + '</div>'); 
+x++; return false; });
+/*------------------------------------------------ To Add Email Field
+-------------------------------------------------*/
+$(emailfield).click(function() { if (x <= MaxInputs) {
+emailFieldCount++; 
+$(InputsWrapper).append('<div>	' + '	<div class="email" id="InputsWrapper_1' + emailFieldCount + '">		' + '<label>Email:' + emailFieldCount + '</label>' + '<input			type="text" name="myemail[]" id="field_' + emailFieldCount + '"			placeholder="Email' + emailFieldCount + '" />' + '		<button class="removeclass1">x</button>		' + '		<button class="addclass1">+</button>	' + '<br>' + '	</div>	' + '</div>'); 
+x++; } return false; }); $("body").on("click", ".removeclass1",
+function() { $(this).parent('div').remove(); // To Remove Email Field
+x--; return false; }); $("body").on("click", ".addclass1", function() {
+emailFieldCount++; // To Add More Email Field
+$(this).parent('div').parent('div').append('<div class="email">	' + '<label>Email:' + emailFieldCount + '</label>' + '<input		type="text" name="myemail[]" id="field_' +emailFieldCount + '"		placeholder="Email' + emailFieldCount + '" />' + '	<button class="removeclass1">x</button>	' + '	<button class="addclass1">+</button>	' + '<br>' + '</div>'); 
+x++; return false; });
+/*------------------------------------------------ To Add Address Field
+-------------------------------------------------*/
+$(addressfield).click(function() { if (x <= MaxInputs) {
+addressFieldCount++; $(InputsWrapper).append('<div>	' + '	<div class="address" id="InputsWrapper_2' + addressFieldCount + '">		' + '<label>Address:' + addressFieldCount + '</label>' + '		<p>			' + '			<textarea type="text" name="myaddress[]"				id="field_' + addressFieldCount + '"				placeholder="Address' + addressFieldCount + '" />			' + '			<button class="removeclass2">x</button>			' + '			<button class="addclass2">+</button>			' + '		</p>		' + '<br>' + '	</div>	' + '</div>');
+x++; } return false; }); $("body").on("click", ".removeclass2",
+function() { $(this).parent('p').parent('div').remove(); // To Remove Address Field 
+x--; 
+return false; }); 
+$("body").on("click", ".addclass2",function() { 
+	addressFieldCount++; // To Add More Address Field
+$(this).parent('p').parent('div').parent('div').append('<div class="address">	' + '<label>Address:' + addressFieldCount + '</label>' + '	<p>		' + '		<textarea type="text" name="myaddress[]"			id="field_' + addressFieldCount + '"			placeholder="Address' + addressFieldCount + '" />		' + '		<button class="removeclass2">x</button>		' + '		<button class="addclass2">+</button>		' + '<br>' + '	</p>	' + '</div>'); 
+x++; return false; });
+/*------------------------------------------------ To Add Check-Box
+-------------------------------------------------*/
+$(checkbox).click(function() { if (x <= MaxInputs) {
+checkboxFieldCount++; checkboxdivCount++; checkbox_sub_para_Count++;
+$(InputsWrapper).append('<div class="checkbox" id="InputsWrapper_3_' + checkboxdivCount + '">	' + '	<p class="checkbox_child" id="para' + checkbox_sub_para_Count + '">		' + '<label>CheckBox:' + checkboxFieldCount + '</label>' + '<input			type="checkbox" name="mycheckbox[]"			id="field_' + checkboxFieldCount + '"			value="CheckBox' +checkboxFieldCount+++'" />' + '		<button class="removeclass3">x</button>		' + '		<button class="addclass3">+</button>		' + '	</p>	' + '	<p class="checkbox_child" id="para' +checkbox_sub_para_Count + '">		' + '<label>CheckBox:' + checkboxFieldCount + '</label>' + '<input			type="checkbox" name="mycheckbox[]"			id="field_' +checkboxFieldCount + '"			value="CheckBox' + checkboxFieldCount+++'" />' + '		<button class="removeclass3">x</button>		' + '		<button class="addclass3">+</button>		' + '	</p>	' + '	<p class="checkbox_child" id="para' + checkbox_sub_para_Count + '">		' + '<label>CheckBox:' + checkboxFieldCount + '</label>' + '<input			type="checkbox" name="mycheckbox[]"			id="field_' + checkboxFieldCount + '"			value="CheckBox' + checkboxFieldCount + '" />' + '		<button class="removeclass3">x</button>		' + '		<button class="addclass3">+</button>		' + '	</p>	' + '</div>'); 
+x++; } return false; }); $("body").on("click", ".removeclass3",
+function() { $(this).parent('p').remove(); // To Remove Check-Box x--;
+return false; }); $("body").on("click", ".addclass3", function() {
+checkboxFieldCount++; // To Add More Check-Box
+$(this).parent('p').parent('div').append('<p class="checkbox_child" id="para' + checkbox_sub_para_Count + '">	' + '<label>CheckBox:' + checkboxFieldCount + '</label>' + '<input		type="checkbox" name="mycheckbox[]"		id="field_' + checkboxFieldCount + '"		value="CheckBox' + checkboxFieldCount + '" />' + '	<button class="removeclass3">x</button>	' + '	<button class="addclass3">+</button>	' + '</p>'); 
+x++; return false; });
+/*------------------------------------------------ To Add Radio-Button
+-------------------------------------------------*/
+$(radiobutton).click(function() { if (x <= MaxInputs) {
+radiobuttonFieldCount++; radiobuttondivCount++; radio_sub_para_Count++;
+$(InputsWrapper).append('<div class="radiobutton"	id="InputsWrapper_4_' + radiobuttondivCount + '">	' + '	<p class="radiobutton_child" id="para' + radio_sub_para_Count +'">		' + '<label>Radio:' + radiobuttonFieldCount + '</label>' + '<input			type="radio" name="myradio[]"			id="field_' + radiobuttonFieldCount + '"			placeholder="Radio_' +radiobuttonFieldCount+++'" />' + '		<button class="removeclass4">x</button>		' + '		<button class="addclass4">+</button>		' + '	</p>	' + '	<p class="radiobutton_child" id="para' + radio_sub_para_Count + '">		' + '<label>Radio:' + radiobuttonFieldCount + '</label>' + '<input			type="radio" name="myradio[]"			id="field_' + radiobuttonFieldCount + '"			placeholder="Radio_' + radiobuttonFieldCount+++'" />' + '		<button class="removeclass4">x</button>		' + '		<button class="addclass4">+</button>		' + '	</p>	' + '	<p class="radiobutton_child" id="para' + radio_sub_para_Count +'">		' + '<label>Radio:' + radiobuttonFieldCount + '</label>' + '<input			type="radio" name="myradio[]"			id="field_' + radiobuttonFieldCount + '"			placeholder="Radio_' +radiobuttonFieldCount + '" />' + '		<button class="removeclass4">x</button>		' + '		<button class="addclass4">+</button>		' + '	</p>	' + '</div>'); 
+x++; } return false; }); $("body").on("click", ".removeclass4",function() { 
+	$(this).parent('p').remove(); // To Remove Radio-Button
+x--; return false; }); $("body").on("click", ".addclass4", function() {
+radiobuttonFieldCount++; // To Add More Radio-Button
+$(this).parent('p').parent('div').append('<p class="radiobutton_child" id="para' + radio_sub_para_Count + '">	' + '<label>Radio:' + radiobuttonFieldCount + '</label>' + '<input		type="radio" name="myradio[]" id="field_' + radiobuttonFieldCount + '"		placeholder="Radio_' + radiobuttonFieldCount + '" />' + '	<button class="removeclass4">x</button>	' + '	<button class="addclass4">+</button>	' + '</p>'); 
+x++; return false; }); $("#reset").on("click", function() {
+$("#InputsWrapper").empty(); // To Reset All Elements 
+}); });
+</script>
+<script>
+	$(document).ready(function() {
+
+	});
+</script>
+
+</html>

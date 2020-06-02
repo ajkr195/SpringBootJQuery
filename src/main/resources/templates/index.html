@@ -54,7 +54,7 @@
 					<button id="submitform1" class="btn btn-sm btn-danger" type=submit>
 						<i class="fas fa-check"></i> Submit And Show Form Data
 					</button>
-					<div id="results"></div>
+					<div class="mt-5 mb-5" id="results"></div>
 					<div id="results2"></div>
 				</div>
 			</div>
@@ -148,7 +148,7 @@
 		$("#results2").empty();
 		$.each(x, function(i, field) {
 			showValues();
-			$("#results2").append(field.name + ":" + field.value + " ");
+			$("#results2").append(field.name + " = " + field.value + " ");
 			
 		});
 		

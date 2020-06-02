@@ -32,5 +32,10 @@ public class MyController {
 		return "index5";
 	}
 	
+	@GetMapping("/index6")
+	public String homeIndex6(Model model) {
+		return "index6";
+	}
+	
 	
 }
