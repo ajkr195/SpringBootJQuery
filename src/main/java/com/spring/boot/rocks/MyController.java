@@ -37,5 +37,28 @@ public class MyController {
 		return "index6";
 	}
 	
+	@GetMapping("/index7")
+	public String homeindex7(Model model) {
+		return "index7";
+	}
+	@GetMapping("/index8")
+	public String homeindex8(Model model) {
+		return "index8";
+	}
+	
+	@GetMapping("/index9")
+	public String homeindex9(Model model) {
+		return "index9";
+	}
+	
+	@GetMapping("/index10")
+	public String homeindex10(Model model) {
+		return "index10";
+	}
+	
+	@GetMapping("/index11")
+	public String index11(Model model) {
+		return "index11";
+	}
 	
 }

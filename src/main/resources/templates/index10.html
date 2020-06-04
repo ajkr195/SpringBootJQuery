@@ -9,9 +9,22 @@
 	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
 <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}">
 <link rel="stylesheet" th:href="@{/webjars/jquery-ui/jquery-ui.min.css}">
-
 </head>
+<style>
+span {
+	display: block;
+}
 
+.jumbo {
+	padding: 15px;
+	/* 	border-style: solid; */
+	/* 	margin-bottom: 0px; */
+	/* 	margin-left: 0px; */
+	/* 	margin-right: 0px; */
+	/* 	margin-top: 0px; */
+	/* 	background-color: transparent !important; */
+}
+</style>
 <body>
 
 	<nav class="navbar navbar-expand-sm bg-primary navbar-light  py-0"
@@ -41,23 +54,31 @@
 			</ul>
 		</div>
 	</nav>
+
 	<div class="container mt-5">
 
+		<input type="button" value="Add Row" onclick="addRow('dataTable')" />
 
+		<input type="button" value="Delete Row"
+			onclick="deleteRow('dataTable')" />
 
-		<div class="container1 mt-3">
-			<button class="add_form_field">
-				Add New Field &nbsp; <span
-					style="font-size: 16px; font-weight: bold;">+ </span>
-			</button>
-			<div>
-				<input type="text" name="mytext[]">
-			</div>
-		</div>
+		<table id="dataTable" width="350px">
+			<tr>
+				<td><input type="checkbox" name="chk" /></td>
+				<td><input type="text" name="txt" /></td>
+				<td><SELECT name="country">
+						<option value="in">India</option>
+						<option value="is">Israel</option>
+						<option value="us">United States</option>
+						<option value="ch">Switzerland</option>
+						<option value="au">Australia</option>
+				</SELECT></td>
+			</tr>
+		</table>
 
-
-		<br /> <br /> <br /> <br />
 	</div>
+
+
 </body>
 
 
@@ -66,38 +87,62 @@
 <script th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>
 <script type="text/javascript"
 	th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-
-<script>
-	$(document)
-			.ready(
-					function() {
-						var max_fields = 10;
-						var wrapper = $(".container1");
-						var add_button = $(".add_form_field");
-
-						var x = 1;
-						$(add_button)
-								.click(
-										function(e) {
-											e.preventDefault();
-											if (x < max_fields) {
-												x++;
-												$(wrapper)
-														.append(
-																'<div><input type="text" name="mytext[]"/><a href="#" class="delete">Delete</a></div>'); //add input box
-											} else {
-												alert('You Reached the limits')
-											}
-										});
-
-						$(wrapper).on("click", ".delete", function(e) {
-							e.preventDefault();
-							$(this).parent('div').remove();
-							x--;
-						})
-
-					});
+<script type="text/javascript">
+	
 </script>
+<script>
+	function addRow(tableID) {
 
+		var table = document.getElementById(tableID);
+
+		var rowCount = table.rows.length;
+		var row = table.insertRow(rowCount);
+
+		var colCount = table.rows[0].cells.length;
+
+		for (var i = 0; i < colCount; i++) {
+
+			var newcell = row.insertCell(i);
+
+			newcell.innerHTML = table.rows[0].cells[i].innerHTML;
+			//alert(newcell.childNodes);
+			switch (newcell.childNodes[0].type) {
+			case "text":
+				newcell.childNodes[0].value = "";
+				break;
+			case "checkbox":
+				newcell.childNodes[0].checked = false;
+				break;
+			case "select-one":
+				newcell.childNodes[0].selectedIndex = 0;
+				break;
+			}
+		}
+	}
+
+	function deleteRow(tableID) {
+		try {
+			var table = document.getElementById(tableID);
+			var rowCount = table.rows.length;
+
+			for (var i = 0; i < rowCount; i++) {
+				var row = table.rows[i];
+				var chkbox = row.cells[0].childNodes[0];
+				if (null != chkbox && true == chkbox.checked) {
+					if (rowCount <= 1) {
+						alert("Cannot delete all the rows.");
+						break;
+					}
+					table.deleteRow(i);
+					rowCount--;
+					i--;
+				}
+
+			}
+		} catch (e) {
+			alert(e);
+		}
+	}
+</script>
 
 </html>

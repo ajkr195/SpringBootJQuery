@@ -9,9 +9,12 @@
 	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
 <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}">
 <link rel="stylesheet" th:href="@{/webjars/jquery-ui/jquery-ui.min.css}">
-
 </head>
-
+<style>
+span {
+	display: block;
+}
+</style>
 <body>
 
 	<nav class="navbar navbar-expand-sm bg-primary navbar-light  py-0"
@@ -41,23 +44,20 @@
 			</ul>
 		</div>
 	</nav>
+
 	<div class="container mt-5">
 
+		<input type="text" id="input" />
+		<button id="insert">Insert</button>
+
+		<div id="calling-pad"></div>
+
+		<button id="remove">Remove last element</button>
 
 
-		<div class="container1 mt-3">
-			<button class="add_form_field">
-				Add New Field &nbsp; <span
-					style="font-size: 16px; font-weight: bold;">+ </span>
-			</button>
-			<div>
-				<input type="text" name="mytext[]">
-			</div>
-		</div>
-
-
-		<br /> <br /> <br /> <br />
 	</div>
+
+
 </body>
 
 
@@ -66,38 +66,35 @@
 <script th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>
 <script type="text/javascript"
 	th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-
-<script>
-	$(document)
-			.ready(
-					function() {
-						var max_fields = 10;
-						var wrapper = $(".container1");
-						var add_button = $(".add_form_field");
-
-						var x = 1;
-						$(add_button)
-								.click(
-										function(e) {
-											e.preventDefault();
-											if (x < max_fields) {
-												x++;
-												$(wrapper)
-														.append(
-																'<div><input type="text" name="mytext[]"/><a href="#" class="delete">Delete</a></div>'); //add input box
-											} else {
-												alert('You Reached the limits')
-											}
-										});
-
-						$(wrapper).on("click", ".delete", function(e) {
-							e.preventDefault();
-							$(this).parent('div').remove();
-							x--;
-						})
-
-					});
+<script type="text/javascript">
+	
 </script>
+<script>
+	$(document).ready(
+			function() {
+				var totalInputs = 0;
+				$("#remove").hide();
+				$("#insert").on(
+						"click",
+						function() {
+							$("#remove").show();
+							totalInputs++;
+							var inputText = $("#input").val();
+							var id = "calling_" + totalInputs;
+							$("#calling-pad").append(
+									"<span id='" + id + "'>" + inputText
+											+ "</span>");
+						});
 
-
+				$("#remove").on("click", function() {
+					$("#calling_" + totalInputs).remove();
+					totalInputs--;
+					
+					if(totalInputs === 0) {
+						$("#remove").hide();	
+					}
+					
+				});
+			});
+</script>
 </html>

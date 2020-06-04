@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title th:text="${metaTitle} ? ${metaTitle} : 'default title'"></title>
+<link rel="stylesheet"
+	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}">
+<link rel="stylesheet" th:href="@{/webjars/jquery-ui/jquery-ui.min.css}">
+</head>
+<style>
+span {
+	display: block;
+}
+
+.jumbo {
+	padding: 15px;
+	/* 	border-style: solid; */
+	/* 	margin-bottom: 0px; */
+	/* 	margin-left: 0px; */
+	/* 	margin-right: 0px; */
+	/* 	margin-top: 0px; */
+	/* 	background-color: transparent !important; */
+}
+</style>
+<body>
+
+	<nav class="navbar navbar-expand-sm bg-primary navbar-light  py-0"
+		th:fragment="header">
+		<!-- 	<nav class="navbar bg-custom navbar-expand-sm bg-primary navbar-dark py-1" -->
+		<!-- 		th:fragment="header"> -->
+		<a th:href="@{/}" class="brand-link"> </a> <a class="navbar-brand"
+			th:href="@{/}">Spring JQuery</a>
+		<button type="button" class="navbar-toggler" data-toggle="collapse"
+			data-target="#nav">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse justify-content-between" id="nav">
+
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link" th:href="@{/}"><i
+						class="fas fa-home fa-2x mr-5" style="color: white"></i></a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/}">index1</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index2}">index2</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index3}">index3</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index4}">index4</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index5}">index5</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index6}">index6</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index7}">index7</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index8}">index8</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index9}">index9</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container mt-5">
+
+		<input type="text" id="input" required />
+		<button id="insert">Insert</button>
+
+		<div id="calling-pad"></div>
+
+		<button id="remove">Remove last element</button>
+
+
+
+		<hr />
+
+
+		<form method="post" action="">
+			<div class="row">
+				<div class="col-lg-6">
+
+					<div id="inputFormRow">
+						<div class="input-group input-group-sm mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text">0</span>
+							</div>
+							<input type="text" name="title[]" class="form-control m-input"
+								placeholder="Enter title" autocomplete="off">
+						</div>
+					</div>
+
+					<div id="newRowGoesHere"></div>
+					<button id="appendNewRow" type="button"
+						class="btn btn-sm btn-success">
+						<i class="fas fa-plus"></i> Add
+					</button>
+					<button id="appendNewRow" type="submit"
+						class="btn btn-sm btn-primary float-right">
+						<i class="fas fa-check"></i> Submit
+					</button>
+				</div>
+			</div>
+		</form>
+
+
+		<div id="clonedInput1" class="clonedInput">
+			<div class="jumbotron jumbo col-md-6">
+				<div>
+					<label for="txtCategory" class="">Learning category <span
+						class="requiredField"></span></label> <select
+						class="form-control form-control-sm" name="txtCategory[]"
+						id="category1">
+						<option value="">Please select</option>
+					</select>
+				</div>
+				<div>
+					<label for="txtSubCategory" class="">Sub-category <span
+						class="requiredField"></span></label> <select
+						class="form-control form-control-sm" name="txtSubCategory[]"
+						id="subcategory1">
+						<option value="">Please select category</option>
+					</select>
+				</div>
+				<div>
+					<label for="txtSubSubCategory">Sub-sub-category <span
+						class="requiredField"></span></label> <select name="txtSubSubCategory[]"
+						id="subsubcategory1" class="form-control">
+						<option value="">Please select sub-category</option>
+					</select>
+				</div>
+				<div class="actions">
+					<button class="clone">Clone</button>
+					<button class="remove">Remove</button>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+</body>
+
+
+<script type="text/javascript"
+	th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>
+<script type="text/javascript"
+	th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script type="text/javascript">
+	
+</script>
+<script>
+	$(document).ready(
+			function() {
+				var totalInputs = 0;
+				$("#remove").hide();
+				$("#insert").on(
+						"click",
+						function() {
+							$("#remove").show();
+							totalInputs++;
+							var inputText = $("#input").val();
+							var id = "calling_" + totalInputs;
+							$("#calling-pad").append(
+									"<span id='" + id + "'>" + inputText
+											+ "</span>");
+						});
+
+				$("#remove").on("click", function() {
+					$("#calling_" + totalInputs).remove();
+					totalInputs--;
+
+					if (totalInputs === 0) {
+						$("#remove").hide();
+					}
+
+				});
+			});
+</script>
+
+<script type="text/javascript">
+	$(document)
+			.ready(
+					function() {
+						var x = 0;
+						console.log("ready!");
+
+						$("#appendNewRow")
+								.click(
+										function() {
+											x++;
+											var html = '';
+											html += '<div class="abc" id="appendedRow' + x + '">';
+											html += '<div class="input-group input-group-sm mb-3">';
+											html += '<div class="input-group-prepend">';
+											html += '<span class="input-group-text">'
+													+ x + '</span></div>';
+
+											html += '<input type="text" name="title[]" class="form-control m-input" placeholder="Enter title" autocomplete="off">';
+											html += '<div class="input-group-append">';
+											html += '<button id="removeRow" type="button" class="btn btn-danger removeRow"><i class="far fa-trash-alt"> </i> Delete</button>';
+											html += '</div></div>';
+
+											$('#newRowGoesHere').append(html);
+										});
+						//remove
+						$(document).on('click', '.removeRow', function() {
+							$(this).closest('.abc').remove(); //find closest class
+							x--;
+							resetValues(); //call function
+						});
+
+						function resetValues() {
+							counter = 1; //initialze to 1
+							//looping through class div -> class abc
+							$(".abc").each(
+									function() {
+										//getting span where count is display replace with new
+										$(this).find('.input-group-text').text(
+												counter);
+										//replce id with new id
+										$(this).attr('id',
+												"appendedRow" + counter);
+										counter++;
+									})
+						}
+					});
+</script>
+
+
+<script>
+	$(document).ready(
+			function() {
+				var regex = /^(.+?)(\d+)$/i;
+				var cloneIndex = $(".clonedInput").length;
+
+				function clone() {
+					$(this).parents(".clonedInput").clone().appendTo(
+							"#clonedInput1").attr("id",
+							"clonedInput" + cloneIndex).find("*").each(
+							function() {
+								var id = this.id || "";
+								var match = id.match(regex) || [];
+								if (match.length == 3) {
+									this.id = match[1] + (cloneIndex);
+								}
+							}).on('click', 'button.clone', clone).on('click',
+							'button.remove', remove);
+					cloneIndex++;
+				}
+				function remove() {
+					$(this).parents(".clonedInput").remove();
+				}
+				$("button.clone").on("click", clone);
+
+				$("button.remove").on("click", remove);
+			});
+</script>
+
+</html>

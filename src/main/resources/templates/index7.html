@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title th:text="${metaTitle} ? ${metaTitle} : 'default title'"></title>
+<link rel="stylesheet"
+	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}">
+<link rel="stylesheet" th:href="@{/webjars/jquery-ui/jquery-ui.min.css}">
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expand-sm bg-primary navbar-light  py-0"
+		th:fragment="header">
+		<!-- 	<nav class="navbar bg-custom navbar-expand-sm bg-primary navbar-dark py-1" -->
+		<!-- 		th:fragment="header"> -->
+		<a th:href="@{/}" class="brand-link"> </a> <a class="navbar-brand"
+			th:href="@{/}">Spring JQuery</a>
+		<button type="button" class="navbar-toggler" data-toggle="collapse"
+			data-target="#nav">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse justify-content-between" id="nav">
+
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link" th:href="@{/}"><i
+						class="fas fa-home fa-2x mr-5" style="color: white"></i></a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/}">index1</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index2}">index2</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index3}">index3</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index4}">index4</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index5}">index5</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index6}">index6</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index7}">index7</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index8}">index8</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index9}">index9</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container mt-5">
+
+
+		<form>
+
+			<div id="sections">
+				<div class="section">
+					<fieldset>
+						<legend>User</legend>
+
+						<p>
+							<label for="firstName">First Name:</label> <input
+								name="firstName[]" id="firstName" value="" type="text" />
+						</p>
+
+						<p>
+							<label for="lastName">Last Name:</label> <input name="lastName[]"
+								id="lastName" value="" type="text" />
+						</p>
+
+						<p>
+							<a href="#" class='remove'>Remove Section</a>
+						</p>
+
+					</fieldset>
+				</div>
+			</div>
+
+			<p>
+				<a href="#" class='addsection'>Add Section</a>
+			</p>
+
+		</form>
+
+
+
+		<div id="somedivid">
+			<div class="clone">
+				<label for="firstName">Input Field Label:</label> <input type="text"
+					name="AMOUNT" class="cl">
+			</div>
+
+			<div class="placer"></div>
+
+			<a href="#" class="clone_trigger">Add another</a> &nbsp; <a href="#"
+				class="remove_trigger">Remove last </a>
+
+		</div>
+
+
+	</div>
+
+
+</body>
+
+
+<script type="text/javascript"
+	th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>
+<script type="text/javascript"
+	th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script type="text/javascript">
+	
+</script>
+<script>
+	$(document).ready(function() {
+		var template = $('#sections .section:first').clone();
+
+		//define counter
+		var sectionsCount = 1;
+
+		//add new section
+		$('body').on('click', '.addsection', function() {
+
+			//increment
+			sectionsCount++;
+
+			//loop through each input
+			var section = template.clone().find(':input').each(function() {
+
+				//set id to store the updated section number
+				var newId = this.id + sectionsCount;
+
+				//update for label
+				$(this).prev().attr('for', newId);
+
+				//update id
+				this.id = newId;
+
+			}).end()
+
+			//inject new section
+			.appendTo('#sections');
+			return false;
+		});
+
+		//remove section
+		$('#sections').on('click', '.remove', function() {
+			//fade out section
+			$(this).parent().fadeOut(300, function() {
+				//remove parent element (main section)
+				$(this).parent().parent().empty();
+				return false;
+			});
+			return false;
+		});
+	});
+</script>
+<script>
+	$(document).ready(function() {
+		
+		$(".clone_trigger").click(function() {
+			$('.clone').first().clone().insertBefore(".placer");
+			$('input.cl:last').val('');
+			event.preventDefault();
+		});
+	});
+	// End code for duplicating a div box
+
+	// Start code for removing an already duplicated div box
+	$(document).ready(function() {
+		$("#somedivid").on("click", ".remove_trigger", function() {
+			if ($(".clone").length != 1) {
+				$(".clone:last").remove();
+// 				$(".remove_trigger").hide();
+			}
+// 			if ($(".clone").length = 0) {
+// 				$(".remove_trigger").hide();
+// 			}
+			//$('.clone:last').not('.clone:first').remove();
+			event.preventDefault();
+		});
+	});
+</script>
+</html>
