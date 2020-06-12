@@ -61,4 +61,9 @@ public class MyController {
 		return "index11";
 	}
 	
+	@GetMapping("/index12")
+	public String index12(Model model) {
+		return "index12";
+	}
+	
 }

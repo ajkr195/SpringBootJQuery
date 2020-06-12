@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title th:text="${metaTitle} ? ${metaTitle} : 'default title'"></title>
+<link rel="stylesheet"
+	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}">
+<link rel="stylesheet" th:href="@{/webjars/jquery-ui/jquery-ui.min.css}">
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-sm bg-primary navbar-light  py-0"
+		th:fragment="header">
+		<!-- 	<nav class="navbar bg-custom navbar-expand-sm bg-primary navbar-dark py-1" -->
+		<!-- 		th:fragment="header"> -->
+		<a th:href="@{/}" class="brand-link"> </a> <a class="navbar-brand"
+			th:href="@{/}">Spring JQuery</a>
+		<button type="button" class="navbar-toggler" data-toggle="collapse"
+			data-target="#nav">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse justify-content-between" id="nav">
+
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link" th:href="@{/}"><i
+						class="fas fa-home fa-2x mr-5" style="color: white"></i></a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/}">index1</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index2}">index2</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index3}">index3</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index4}">index4</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index5}">index5</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index6}">index6</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index7}">index7</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index8}">index8</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index9}">index9</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index10}">index10</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index11}">index11</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index12}">index12</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/welcome}">Search</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container mt-5">
+
+	<div class="starter-template">
+		<h1>Search (GET) Save (POST) Form</h1>
+		<br>
+
+		
+
+		<form class="form-horizontal" id="search-form">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Username</label>
+				<div class="col-sm-10">
+					<input type=text class="form-control" id="username">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Email</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="email">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10 mr-3">
+					<button type="submit" id="btn-search"
+						class="btn btn-sm btn-primary">Search (GET)</button>
+						<button type="submit" id="btn-save"
+						class="btn btn-sm btn-primary">Save (POST)</button>
+				</div>
+			</div>
+			
+			
+<!-- 			<div class="form-group"> -->
+<!-- 				<div class="col-sm-offset-2 col-sm-10 ml-3"> -->
+<!-- 					<button type="submit" id="btn-save" -->
+<!-- 						class="btn btn-sm btn-primary btn-lg">Save (POST)</button> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+			
+			
+		</form>
+		
+		<div id="feedback"></div>
+
+	</div>
+
+</div>
+
+
+
+</body>
+
+<script type="text/javascript"
+	th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>
+<script type="text/javascript"
+	th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+
+	$("#search-form").submit(function(event) {
+
+		// Disble the search button
+		enableSearchButton(false);
+
+		// Prevent the form from submitting via the browser.
+		event.preventDefault();
+
+		searchViaAjax();
+
+	});
+
+});
+
+function searchViaAjax() {
+
+	var search = {}
+	search["username"] = $("#username").val();
+	search["email"] = $("#email").val();
+
+	$.ajax({
+		type : "POST",
+		contentType : "application/json",
+		url : "/search/api/getSearchResult",
+		data : JSON.stringify(search),
+		dataType : 'json',
+		timeout : 100000,
+		success : function(data) {
+			console.log("SUCCESS: ", data);
+			display(data);
+		},
+		error : function(e) {
+			console.log("ERROR: ", e);
+			display(e);
+		},
+		done : function(e) {
+			console.log("DONE");
+			enableSearchButton(true);
+		}
+	});
+
+}
+
+function enableSearchButton(flag) {
+	$("#btn-search").prop("disabled", flag);
+}
+
+function display(data) {
+	var json = "<h4>Ajax Response</h4><pre>"
+			+ JSON.stringify(data, null, 4) + "</pre>";
+	$('#feedback').html(json);
+}	
+</script>
+
+<script>
+  jQuery(document).ready(
+	function($) {
+
+		$("#btn-save").click(function(event) {
+
+			var data = {}
+			data["username"] = $("#username").val();
+			data["email"] = $("#email").val();
+
+			$.ajax({
+		             type: "POST",
+		             contentType: "application/json",
+		             url: "/save",
+		             data: JSON.stringify(data),
+		             dataType: 'json',
+		             timeout: 600000,
+		             success: function (data) {
+		                 //$("#btn-update").prop("disabled", false);
+		                 alert(data);
+		                 //...
+		             },
+		             error: function (e) {
+		                 //$("#btn-save").prop("disabled", false);
+		                 //...
+		             }
+			});
+
+
+		});
+
+	});
+</script>
+</html>
